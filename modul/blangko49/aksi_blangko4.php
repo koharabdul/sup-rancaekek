@@ -1,0 +1,164 @@
+<?php
+session_start();
+ if (empty($_SESSION['namauser']) AND empty($_SESSION['passuser'])){
+  echo "Untuk mengakses modul, Anda harus login";
+}
+else{
+include "../../config/koneksi.php";
+
+
+$modul=$_GET['modul'];
+$act=$_GET['act'];
+
+
+
+if ($modul=='blangko4' AND $act=='input')
+{
+	$count=mysql_fetch_array(mysql_query("SELECT `id_nota` FROM blangko04 
+											WHERE nama_irigasi = '$_SESSION[namairigasi]' 
+											AND kode_nota = '$_POST[kd_nota]'"));
+    if($count['id_nota']!= $_POST['nota'])//untuk tidak memasukan no yang sama
+    {
+		mysql_query("INSERT INTO `irigasi`.`blangko04`(`id_nota`,
+													   `kode_nota`,
+													   `nama_personil`,
+													   `nama_irigasi`,
+													   `kode_irigasi`,
+													   `jumlah_tersier`,
+													   `total_wilayah`,
+													   `nama_ranting`,
+													   `nama_kepala`,
+													   `nip`,
+													   `kabupaten`,
+													   `jabatan`,
+													   `tgl_blangko04O`,
+													   `tgl_ket`,
+													   `bln_blangko04O`,
+													   `bln_ket`,
+													   `tahun_blangko04O`,
+													   `jumlahhari`,
+													   `masatanam`,
+													   `bulanMasatanamke`,
+													   `tahunMasatanamke`,
+													   `sampaiBulan`,
+													   `sampaiTahun`,
+													   `padi1`,
+													   `tebumuda1`,
+													   `tebutua1`,
+													   `palawija1`,
+													   `lain1`,
+													   `jumlah1`,
+													   `bero1`,
+													   `padiMT1_2`,
+													   `padiMT2_2`,
+													   `padiMT3_2`,
+													   `tebumuda_2`,
+													   `tebutua_2`,
+													   `palawijaMT1_2`,
+													   `palawijaMT2_2`,
+													   `palawijaMT3_2`,
+													   `gadutidakijinMT2_2`,
+													   `gadutidakijinMT3_2`,
+													   `lain2`,
+													   `bero2`,
+													   `jumlah2`,
+													   `padi_a_3`,
+													   `padi_b_3`,
+													   `padi_c_3`,
+													   `jumlahpadi3`,
+													   `tebu_a_3`,
+													   `tebu_b_3`,
+													   `tebu_c_3`,
+													   `jumlahtebu3`,
+													   `palawija_a_3`,
+													   `palawija_b_3`,
+													   `jumlahpalawija3`,
+													   `gadutidakijin3`,
+													   `jumlahgadutidakijin3`,
+													   `lain3`,
+													   `jumlahlain3`,
+													   `bero3`,
+													   `jumlahbero`,
+													   `keadaanAir`,
+													   `padiKekeringan`,
+													   `tebuKekeringan`,
+													   `palawijaKekeringan`,
+													   `padiKebanjirang`,
+													   `tebuKebanjirang`,
+													   `palawijaKebanjirang`) 
+											VALUES ('$_POST[nota]',
+												    '$_POST[kd_nota]',
+												    '$_SESSION[namalengkap]',
+												    '$_SESSION[namairigasi]',
+												    '$_SESSION[kodeirigasi]',
+												    '$_SESSION[jumlahtersier]',
+												    '$_SESSION[totalwilayah]',
+												    '$_SESSION[namaranting]',
+												    '$_SESSION[kepalaranting]',
+												    '$_SESSION[NIP]',
+												    '$_SESSION[kab]',
+												    '$_SESSION[bagianpelaksana]',
+												    '$_POST[tgl]',
+												    '$_POST[ket_tgl]',
+												    '$_POST[bulan]',
+												    '$_POST[ket_bln]',
+												    '$_POST[ket_thn]',
+												    '$_POST[jumlahhari]',
+												    '$_POST[menu_masatanam]',
+												    '$_POST[menu_bulan]',
+												    '$_POST[menu_tahun]',
+												    '$_POST[menu_bulan2]',
+												    '$_POST[menu_tahun2]',
+												    '$_POST[p]',
+												    '$_POST[t]',
+												    '$_POST[m]',
+												    '$_POST[w]',
+												    '$_POST[l]',
+												    '$_POST[o]',
+												    '$_POST[b1]',
+												    '$_POST[p21]',
+												    '$_POST[p22]',
+												    '$_POST[p23]',
+												    '$_POST[t2m]',
+												    '$_POST[t2t]',
+												    '$_POST[w21]',
+												    '$_POST[w22]',
+												    '$_POST[w23]',
+												    '$_POST[gti22]',
+												    '$_POST[gti23]',
+												    '$_POST[l2]',
+												    '$_POST[b2]',
+												    '$_POST[j2]',
+												    '$_POST[p31]',
+												    '$_POST[p32]',
+												    '$_POST[p33]',
+												    '$_POST[jp]',
+												    '$_POST[t31]',
+												    '$_POST[t32]',
+												    '$_POST[t33]',
+												    '$_POST[jt]',
+												    '$_POST[w31]',
+												    '$_POST[w32]',
+												    '$_POST[jw]',
+												    '$_POST[gti31]',
+												    '$_POST[gti32]',
+												    '$_POST[l31]',
+												    '$_POST[l32]',
+												    '$_POST[b3]',
+												    '$_POST[jb3]',
+												    '$_POST[keadaan_air]',
+												    '$_POST[p4k]',
+												    '$_POST[p4b]',
+												    '$_POST[t4k]',
+												    '$_POST[t4b]',
+												    '$_POST[w4k]',
+												    '$_POST[w4b]')"); 
+	}
+	else
+	{
+		header('location:../../media.php?modul=blangko5&kode_nota='.$_POST[kd_nota]);
+	}
+	header('location:../../media.php?modul=blangko5&kode_nota='.$_POST[kd_nota]);
+}
+}
+?>
